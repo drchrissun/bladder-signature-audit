@@ -19,11 +19,14 @@ Repository:
 https://github.com/drchrissun/bladder-signature-audit
 ```
 
-The archived release DOI will be added here after publication:
+Archived release (concept DOI, resolves to the latest version):
 
 ```text
-DOI: [Zenodo DOI]
+https://doi.org/10.5281/zenodo.22540759
 ```
+
+The current version-specific release is listed on the repository release page and
+in Zenodo. Cite the version-specific DOI when an exact snapshot is required.
 
 ## Public input data
 
@@ -117,3 +120,7 @@ The R analyses require R 4.x with `readr`, `regmedint`, and `consensusMIBC`.
 
 - Analysis code: MIT License (`LICENSE-CODE`).
 - Data, processed tables, and figures: CC BY 4.0 (`LICENSE-DATA`).
+
+The Zenodo archive record uses CC BY 4.0 as its record-level license. Code files
+in the archive remain available under the MIT License as indicated by
+`LICENSE-CODE`.

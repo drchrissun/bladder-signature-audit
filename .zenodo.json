@@ -1,0 +1,41 @@
+{
+  "creators": [
+    {
+      "name": "Sun, Weilin",
+      "affiliation": "Department of Urology, The Third Affiliated Hospital of Southern Medical University"
+    },
+    {
+      "name": "Li, Haomin",
+      "affiliation": "Department of Urology, The Third Affiliated Hospital of Southern Medical University"
+    },
+    {
+      "name": "Yang, Shibo",
+      "affiliation": "Department of Urology, The Third Affiliated Hospital of Southern Medical University"
+    },
+    {
+      "name": "Yang, Jiankun",
+      "affiliation": "Department of Urology, The Third Affiliated Hospital of Southern Medical University"
+    }
+  ],
+  "title": "Bladder Cancer Gene-Signature Re-Scoring Audit: Analysis Code, Processed Tables, and Figures",
+  "description": "Analysis code, processed result tables, screening records, and publication figures for a dual-screened scoping audit of published bladder cancer mRNA gene signatures. The audit re-scores published gene lists without original model weights or cutoffs and tests survival associations after adjustment for clinical, compositional, and microenvironment covariates. The repository does not contain the manuscript under review, downloaded full-text PDFs, or raw protected-access patient data.",
+  "license": "CC-BY-4.0",
+  "access_right": "open",
+  "upload_type": "software",
+  "keywords": [
+    "bladder cancer",
+    "gene signature",
+    "compositional adjustment",
+    "tumor purity",
+    "deconvolution",
+    "survival analysis",
+    "reproducibility"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/drchrissun/bladder-signature-audit",
+      "resource_type": "software"
+    }
+  ]
+}
