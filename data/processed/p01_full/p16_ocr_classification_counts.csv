@@ -1,0 +1,13 @@
+analysis_set,classification,count
+full_200,composition_adjustment_persistent,9
+full_200,microenvironment_associated_attenuation,14
+full_200,microenvironment_correlated,124
+full_200,unclassified,53
+full_200,lost_fdr,14
+full_200,gained_fdr,7
+exclude_42493447_199,composition_adjustment_persistent,9
+exclude_42493447_199,microenvironment_associated_attenuation,14
+exclude_42493447_199,microenvironment_correlated,123
+exclude_42493447_199,unclassified,53
+exclude_42493447_199,lost_fdr,14
+exclude_42493447_199,gained_fdr,7

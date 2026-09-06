@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.tools/
+.DS_Store
+/code/*
+!/code/final_pipeline/
+!/code/final_pipeline/**

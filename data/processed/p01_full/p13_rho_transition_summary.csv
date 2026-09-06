@@ -1,0 +1,9 @@
+threshold,base_class,base_count,retained_count,changed_count
+0.3,composition_adjustment_persistent,9,4,5
+0.5,composition_adjustment_persistent,9,9,0
+0.3,microenvironment_associated_attenuation,14,14,0
+0.5,microenvironment_associated_attenuation,14,14,0
+0.3,microenvironment_correlated,124,124,0
+0.5,microenvironment_correlated,124,116,8
+0.3,unclassified,53,42,11
+0.5,unclassified,53,53,0

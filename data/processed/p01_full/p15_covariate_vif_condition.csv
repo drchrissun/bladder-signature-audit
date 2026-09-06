@@ -1,0 +1,9 @@
+covariate,vif
+age,1.0679085588316932
+sex_female,1.0320738102615652
+stage_num,1.1646993956354972
+tumor_epithelial_fraction,1.787710690574383
+normal_urothelial_fraction,2.3156085847844947
+immune_score,2.642751129394334
+stromal_score,2.066976475215406
+condition_number_intercept_plus_7,3.4596911491120794

@@ -1,0 +1,7 @@
+pmid,status,genes,source,context,exclude_reason
+29147616,extracted,TNFSF4|CD8A|TIGIT,abstract,"A 3-gene signature of OX40L, CD8 and TIGIT was associated with prognosis in muscle-invasive bladder cancer.",""
+35092511,extracted,CCL2|CCL3|CCL4|CCL5|CCL8|CCL18|CCL19|CCL21|CXCL9|CXCL10|CXCL11|CXCL13,referenced_signature,"The 12-chemokine TLS signature was derived from Messina et al., Sci Rep. 2012. PMID 23097687.",""
+32441304,excluded,,,,Nine CpG methylation sites, not an mRNA gene signature
+40520868,excluded,,,,Only LRRC15 and SCG5; fewer than three genes
+32882873,excluded,,,,Pan-cancer immune prognostic model without an extractable bladder-specific gene list
+36527532,extracted,ASPH|BLVRA|CAV1|CEBPB|CYR61|GNG11|ID1|LGALS3|LIMA1|PSMB5|CAVIN1|TMSB4X,supplement,"Supplementary File 5 Table S3 lists the 12 overlapping B cell senescence-related genes.",""
