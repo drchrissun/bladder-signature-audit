@@ -13,6 +13,12 @@ full-text PDFs, or raw protected-access patient data.
 
 ## Citation
 
+Repository:
+
+```text
+https://github.com/drchrissun/bladder-signature-audit
+```
+
 The archived release DOI will be added here after publication:
 
 ```text
