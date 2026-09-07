@@ -65,7 +65,7 @@ for 200 lists in TCGA-BLCA and 201 in GSE13507.
   cross-tabulations.
 - `supplementary/`: final workbook `Supplementary_Tables_S1_S72_UroOnc_revised.xlsx`.
 - `supplementary/archive/`: earlier workbook versions retained for provenance.
-- `figures/`: final Figure 1, Figure 2, and Figures S1-S6 in PNG and PDF.
+- `figures/`: final Figure 1, Figure 2, and Figures S1-S8 in PNG and PDF.
 
 ## Main analysis order
 
@@ -93,6 +93,9 @@ Run scripts from the repository root with
 14. `build_final_supplementary_tables.py`: regenerate the final S1-S72 workbook.
 15. `p01_full_figures.py`, `prepare_revised_figures.py`, and
     `make_prisma_integrated_figure.py`: regenerate final figures.
+16. `make_nature_candidates.py` and `prepare_supplement_s7_s8.py`:
+    regenerate Figures S7 and S8 from the sensitivity, diagnostic, and pathway
+    result tables.
 
 The released result tables and figures are the exact versions used for the
 manuscript. Bootstrap or model-fitting reruns may produce negligible Monte

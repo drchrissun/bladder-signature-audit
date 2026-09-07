@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 REQUIRED_SCRIPTS = {
     "build_final_supplementary_tables.py",
     "make_prisma_integrated_figure.py",
+    "make_nature_candidates.py",
     "p01_full_figures.py",
     "p01_full_rerun.py",
     "p13_classification_sensitivity.py",
@@ -20,6 +21,7 @@ REQUIRED_SCRIPTS = {
     "p16_ocr_sensitivity.py",
     "p25_gained_reporting_table.py",
     "prepare_revised_figures.py",
+    "prepare_supplement_s7_s8.py",
     "recompute_final_classification_stability.py",
     "recompute_formal_deconv_final.py",
     "run_consensus_mibc.R",
@@ -35,6 +37,8 @@ REQUIRED_FIGURES = [
     "FigureS4",
     "FigureS5",
     "FigureS6",
+    "FigureS7",
+    "FigureS8",
 ]
 
 REQUIRED_DATA = [

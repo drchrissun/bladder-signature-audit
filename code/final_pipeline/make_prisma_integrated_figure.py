@@ -74,14 +74,14 @@ def main():
 
     box(
         ax,
-        2.6,
+        2.2,
         7.0,
-        4.8,
+        5.6,
         1.35,
         "Initial scripted screening",
         "192 title/abstract; 132 excluded\n"
         "154 rule-based; 144 strict inclusion\n"
-        "not signature-like 97; non-mRNA 37; other 8",
+        "Title/abstract exclusions: 88 not signature-like, 37 non-mRNA, 7 other",
         "#DEEBF7",
     )
     arrow(ax, 5.0, 7.0, 5.0, 6.35)

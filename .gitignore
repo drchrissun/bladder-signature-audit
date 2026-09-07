@@ -5,3 +5,4 @@ __pycache__/
 /code/*
 !/code/final_pipeline/
 !/code/final_pipeline/**
+/code/final_pipeline/__pycache__/

@@ -37,7 +37,7 @@ def build_figure2() -> None:
     marker.loc[
         marker["cell_type"].eq("Normal_urothelial"), "cell_type"
     ] = "Normal-like component"
-    fig, axes = plt.subplots(1, 2, figsize=(7.5, 3.5))
+    fig, axes = plt.subplots(1, 2, figsize=(7.5, 3.8))
     axes[0].hist(
         mucosa["normal_looking_minus_primary"],
         bins=35,
@@ -47,7 +47,7 @@ def build_figure2() -> None:
         lw=0.4,
     )
     axes[0].axvline(0, color="black", lw=0.8, ls="--")
-    axes[0].set_xlabel("Normal-looking mucosa score minus primary tumor score")
+    axes[0].set_xlabel("Normal-looking mucosa score minus primary tumor score", labelpad=12)
     axes[0].set_ylabel("Number of gene lists")
     axes[0].set_title("A: Gene-list score comparison", pad=4)
     sns.despine(ax=axes[0])
@@ -80,80 +80,162 @@ def build_figure2() -> None:
         "#0072B2" if value >= 0 else "#D55E00"
         for value in marker["mean_difference"]
     ]
-    axes[1].bar(
+    axes[1].barh(
         marker["display"],
         marker["mean_difference"],
         color=colors,
         alpha=0.85,
     )
-    axes[1].axhline(0, color="black", lw=0.8, ls="--")
-    axes[1].set_xlabel("Marker-score cell type")
-    axes[1].set_ylabel("Normal-minus-primary")
+    axes[1].axvline(0, color="black", lw=0.8, ls="--")
+    axes[1].set_xlabel("Normal-minus-primary", labelpad=12)
+    axes[1].set_ylabel("Marker-score cell type")
     axes[1].set_title("B: Cell-type marker-score comparison", pad=4)
-    axes[1].tick_params(axis="x", rotation=20, labelsize=8)
+    axes[1].invert_yaxis()
+    axes[1].tick_params(axis="y", labelsize=7.5)
     sns.despine(ax=axes[1])
-    fig.subplots_adjust(left=0.12, right=0.93, top=0.86, bottom=0.26, wspace=0.58)
+    fig.subplots_adjust(left=0.11, right=0.94, top=0.85, bottom=0.30, wspace=0.62)
     save(fig, "Figure2")
     plt.close(fig)
 
 
 def build_figure_s2() -> None:
-    fig, ax = plt.subplots(figsize=(7.0, 4.8))
+    fig, ax = plt.subplots(figsize=(7.2, 5.2))
     ax.set_xlim(0, 10)
-    ax.set_ylim(0, 7)
+    ax.set_ylim(0, 8.8)
     ax.axis("off")
-    boxes = {
-        "stage": (0.7, 5.3, "Stage/grade", "#DEEBF7"),
-        "tumor": (4.3, 5.5, "Tumor biology", "#DEEBF7"),
-        "normal": (0.7, 3.0, "Normal-like component score", "#FFF2CC"),
-        "micro": (4.3, 3.0, "Immune/stromal composition", "#FFF2CC"),
-        "normal_score": (0.7, 0.7, "Measured normal-like score", "#E2EFDA"),
-        "micro_score": (4.3, 0.7, "Measured immune/stromal score", "#E2EFDA"),
-        "survival": (7.8, 3.0, "Overall survival", "#FCE4D6"),
-        "platform": (7.5, 5.5, "Platform/sampling", "#EDEDED"),
+    nodes = {
+        "stage": (0.4, 7.0, "Stage/grade", "#DEEBF7"),
+        "tumor": (4.0, 7.0, "Tumor biology", "#DEEBF7"),
+        "normal": (0.4, 4.0, "Normal-like\ncomponent score", "#FFF2CC"),
+        "micro": (4.0, 4.0, "Immune/stromal\ncomposition", "#FFF2CC"),
+        "normal_score": (0.4, 0.8, "Measured normal-like\nscore", "#E2EFDA"),
+        "micro_score": (4.0, 0.8, "Measured immune/\nstromal score", "#E2EFDA"),
+        "survival": (7.6, 4.0, "Overall survival", "#FCE4D6"),
+        "platform": (7.6, 0.8, "Platform/sampling", "#EDEDED"),
     }
-    for key, (x, y, label, color) in boxes.items():
+    for key, (x, y, label, color) in nodes.items():
         ax.add_patch(
             FancyBboxPatch(
                 (x, y),
                 2.0,
-                1.0,
-                boxstyle="round,pad=0.02,rounding_size=0.05",
-                linewidth=0.7,
+                1.05,
+                boxstyle="round,pad=0.03,rounding_size=0.08",
+                linewidth=0.8,
                 edgecolor="#555555",
                 facecolor=color,
+                zorder=2,
             )
         )
-        ax.text(x + 1.0, y + 0.5, label, ha="center", va="center", fontsize=7)
-    arrows = [
-        ("stage", "normal", "+/-"),
-        ("stage", "survival", "-"),
-        ("tumor", "micro", "+"),
-        ("tumor", "survival", "-"),
-        ("normal", "normal_score", "+"),
-        ("micro", "micro_score", "+"),
-        ("micro", "survival", "+/-"),
-        ("platform", "normal_score", "+/-"),
-        ("platform", "micro_score", "+/-"),
-    ]
-    for start, end, sign in arrows:
-        sx = boxes[start][0] + 1.0
-        sy = boxes[start][1]
-        ex = boxes[end][0] + 1.0
-        ey = boxes[end][1] + 1.0
+        ax.text(
+            x + 1.0,
+            y + 0.525,
+            label,
+            ha="center",
+            va="center",
+            fontsize=7.4,
+            linespacing=1.9,
+            zorder=3,
+        )
+
+    def add_edge(start, end, sign, connection, label_offset, sign_offset=(0.18, 0.18)):
+        sx, sy = start
+        ex, ey = end
         ax.add_patch(
             FancyArrowPatch(
                 (sx, sy),
                 (ex, ey),
+                connectionstyle=connection,
                 arrowstyle="-|>",
-                mutation_scale=10,
-                linewidth=0.7,
+                mutation_scale=11,
+                linewidth=0.9,
                 color="#333333",
+                zorder=1,
             )
         )
-        ax.text((sx + ex) / 2, (sy + ey) / 2, sign, fontsize=7, color="#CC0000")
-    ax.set_title("Conceptual DAG with assumed effect directions", fontsize=9, pad=0)
-    fig.subplots_adjust(left=0.02, right=0.98, top=0.90, bottom=0.02)
+        ax.text(
+            label_offset[0],
+            label_offset[1],
+            sign,
+            ha="center",
+            va="center",
+            fontsize=7.3,
+            color="#CC0000",
+            bbox={
+                "boxstyle": "round,pad=0.18",
+                "facecolor": "white",
+                "edgecolor": "none",
+                "alpha": 0.92,
+            },
+            zorder=4,
+        )
+
+    add_edge(
+        (1.4, 7.0),
+        (1.4, 5.05),
+        "+/-",
+        "arc3,rad=0",
+        (1.72, 5.82),
+    )
+    add_edge(
+        (2.4, 7.52),
+        (8.6, 4.52),
+        "-",
+        "arc3,rad=-0.52",
+        (3.55, 7.62),
+        sign_offset=(0.12, 0.12),
+    )
+    add_edge(
+        (5.0, 7.0),
+        (5.0, 5.05),
+        "+",
+        "arc3,rad=0",
+        (5.28, 5.82),
+    )
+    add_edge(
+        (6.0, 7.32),
+        (7.6, 4.82),
+        "-",
+        "arc3,rad=-0.28",
+        (6.85, 6.05),
+    )
+    add_edge(
+        (1.4, 4.0),
+        (1.4, 1.85),
+        "+",
+        "arc3,rad=0",
+        (1.68, 2.72),
+    )
+    add_edge(
+        (5.0, 4.0),
+        (5.0, 1.85),
+        "+",
+        "arc3,rad=0",
+        (5.28, 2.72),
+    )
+    add_edge(
+        (6.0, 4.52),
+        (7.6, 4.52),
+        "+/-",
+        "arc3,rad=0",
+        (6.8, 4.78),
+    )
+    add_edge(
+        (8.6, 0.8),
+        (2.4, 1.32),
+        "+/-",
+        "arc3,rad=-0.62",
+        (5.45, 0.12),
+        sign_offset=(0, 0),
+    )
+    add_edge(
+        (7.6, 1.32),
+        (6.0, 1.32),
+        "+/-",
+        "arc3,rad=0",
+        (6.8, 1.58),
+    )
+    ax.set_title("Conceptual DAG with assumed effect directions", fontsize=9.5, pad=0)
+    fig.subplots_adjust(left=0.02, right=0.98, top=0.92, bottom=0.02)
     save(fig, "FigureS2")
     plt.close(fig)
 
