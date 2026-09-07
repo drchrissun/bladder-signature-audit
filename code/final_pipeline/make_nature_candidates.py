@@ -7,7 +7,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import seaborn as sns
 from matplotlib.colors import ListedColormap, Normalize
+from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 from matplotlib.ticker import FuncFormatter
 
@@ -521,10 +523,6 @@ def figure_pathway_bubble():
     )
     selected["y"] = range(len(selected))
 
-    fig = plt.figure(figsize=(10.0, 5.6))
-    ax = fig.add_axes([0.07, 0.10, 0.48, 0.82])
-    legend_ax = fig.add_axes([0.59, 0.10, 0.38, 0.82])
-    legend_ax.axis("off")
     groups = [
         "composition_adjustment_persistent",
         "microenvironment_associated_attenuation",
@@ -532,44 +530,76 @@ def figure_pathway_bubble():
         "unclassified",
     ]
     colors = [CLASS_COLORS[group] for group in groups]
-    for group, color in zip(groups, colors):
-        sub = selected[selected["group"] == group]
+    group_labels = {
+        "composition_adjustment_persistent": "Persistent",
+        "microenvironment_associated_attenuation": "Attenuation",
+        "microenvironment_correlated": "Correlated",
+        "unclassified": "Unclassified",
+    }
+
+    fig, axes = plt.subplots(
+        4,
+        1,
+        figsize=(7.2, 7.0),
+        sharex=False,
+    )
+    max_x = selected["neg_log10_q"].max() * 1.08
+    for ax, group, color in zip(axes, groups, colors):
+        sub = selected[selected["group"] == group].sort_values("neg_log10_q")
+        y_positions = range(len(sub))
         ax.scatter(
             sub["neg_log10_q"],
-            sub["y"],
-            s=sub["overlap"] * 24,
+            y_positions,
+            s=sub["overlap"] * 28,
             color=color,
             alpha=0.82,
             edgecolors="white",
             linewidths=0.5,
-            label=group.replace("_", " "),
         )
-    ax.set_yticks(selected["y"])
-    ax.set_yticklabels(selected["pathway_short"], fontsize=5)
-    ax.set_xlabel("-log10(q)", fontsize=6)
-    ax.set_ylabel("Hallmark pathway", fontsize=6)
-    ax.tick_params(labelsize=5)
-    ax.set_xlim(left=0)
-    for size in (5, 10, 20):
-        ax.scatter(
+        ax.set_yticks(list(y_positions))
+        ax.set_yticklabels(sub["pathway_short"], fontsize=5)
+        ax.set_xlim(0, max_x)
+        ax.tick_params(labelsize=5)
+        ax.set_title(
+            f"{group_labels[group]}: top six Hallmark pathways",
+            loc="left",
+            fontsize=6.5,
+            pad=2,
+        )
+        sns.despine(ax=ax)
+
+    axes[-1].set_xlabel("-log10(q)", fontsize=6)
+    size_labels = [5, 10, 20]
+    size_handles = [
+        Line2D(
             [],
             [],
-            s=size * 24,
+            marker="o",
             color=PALETTE["grey_light"],
-            edgecolors="white",
+            markersize=(size * 28) ** 0.5,
+            linestyle="None",
             label=f"{size} overlapping genes",
         )
-    handles, labels = ax.get_legend_handles_labels()
-    legend_ax.legend(
-        handles,
-        labels,
-        fontsize=6,
-        loc="center left",
-        bbox_to_anchor=(0.02, 0.5),
+        for size in size_labels
+    ]
+    fig.legend(
+        handles=size_handles,
+        labels=[handle.get_label() for handle in size_handles],
+        loc="upper center",
+        bbox_to_anchor=(0.5, 1.02),
+        ncol=3,
+        fontsize=5,
         frameon=False,
         borderaxespad=0,
     )
-    add_panel(ax, "a")
+    fig.subplots_adjust(
+        left=0.26,
+        right=0.95,
+        top=0.94,
+        bottom=0.05,
+        hspace=0.62,
+    )
+    add_panel(axes[0], "a")
     save_figure(fig, "NatureCandidate_PathwayBubble")
 
 

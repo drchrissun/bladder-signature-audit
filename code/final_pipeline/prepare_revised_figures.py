@@ -241,9 +241,9 @@ def build_figure_s2_previous() -> None:
 
 
 def build_figure_s2() -> None:
-    fig, ax = plt.subplots(figsize=(8.0, 5.5))
+    fig, ax = plt.subplots(figsize=(8.0, 6.0))
     ax.set_xlim(0, 10)
-    ax.set_ylim(0, 9.3)
+    ax.set_ylim(-0.8, 9.3)
     ax.axis("off")
 
     bands = [
@@ -397,8 +397,8 @@ def build_figure_s2() -> None:
         (7.7, 1.10),
         (2.82, 1.60),
         "+/-",
-        "arc3,rad=-0.12",
-        (5.45, 0.55),
+        "arc3,rad=-0.35",
+        (5.45, 0.30),
     )
     add_edge(
         (7.7, 1.60),
