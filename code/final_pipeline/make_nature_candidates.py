@@ -547,19 +547,28 @@ def figure_pathway_bubble():
     for ax, group, color in zip(axes, groups, colors):
         sub = selected[selected["group"] == group].sort_values("neg_log10_q")
         y_positions = range(len(sub))
-        ax.scatter(
-            sub["neg_log10_q"],
+        ax.barh(
             y_positions,
-            s=sub["overlap"] * 28,
+            sub["neg_log10_q"],
             color=color,
             alpha=0.82,
-            edgecolors="white",
-            linewidths=0.5,
+            edgecolor="white",
+            linewidth=0.3,
         )
         ax.set_yticks(list(y_positions))
         ax.set_yticklabels(sub["pathway_short"], fontsize=5)
         ax.set_xlim(0, max_x)
         ax.tick_params(labelsize=5)
+        for y, value, overlap in zip(y_positions, sub["neg_log10_q"], sub["overlap"]):
+            ax.text(
+                value + max_x * 0.02,
+                y,
+                f"n={overlap}",
+                va="center",
+                ha="left",
+                fontsize=4.4,
+                color="#3A3A3A",
+            )
         ax.set_title(
             f"{group_labels[group]}: top six Hallmark pathways",
             loc="left",
@@ -569,33 +578,10 @@ def figure_pathway_bubble():
         sns.despine(ax=ax)
 
     axes[-1].set_xlabel("-log10(q)", fontsize=6)
-    size_labels = [5, 10, 20]
-    size_handles = [
-        Line2D(
-            [],
-            [],
-            marker="o",
-            color=PALETTE["grey_light"],
-            markersize=(size * 28) ** 0.5,
-            linestyle="None",
-            label=f"{size} overlapping genes",
-        )
-        for size in size_labels
-    ]
-    fig.legend(
-        handles=size_handles,
-        labels=[handle.get_label() for handle in size_handles],
-        loc="upper center",
-        bbox_to_anchor=(0.5, 1.02),
-        ncol=3,
-        fontsize=5,
-        frameon=False,
-        borderaxespad=0,
-    )
     fig.subplots_adjust(
         left=0.26,
-        right=0.95,
-        top=0.94,
+        right=0.92,
+        top=0.97,
         bottom=0.05,
         hspace=0.62,
     )
