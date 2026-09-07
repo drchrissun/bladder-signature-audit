@@ -98,7 +98,7 @@ def build_figure2() -> None:
     plt.close(fig)
 
 
-def build_figure_s2() -> None:
+def build_figure_s2_previous() -> None:
     fig, ax = plt.subplots(figsize=(7.2, 5.2))
     ax.set_xlim(0, 10)
     ax.set_ylim(0, 8.8)
@@ -236,6 +236,177 @@ def build_figure_s2() -> None:
     )
     ax.set_title("Conceptual DAG with assumed effect directions", fontsize=9.5, pad=0)
     fig.subplots_adjust(left=0.02, right=0.98, top=0.92, bottom=0.02)
+    save(fig, "FigureS2")
+    plt.close(fig)
+
+
+def build_figure_s2() -> None:
+    fig, ax = plt.subplots(figsize=(8.0, 5.5))
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 9.3)
+    ax.axis("off")
+
+    bands = [
+        (0.25, 6.45, 6.15, 2.35, "#EAF3FA", "Clinical and tumor variables"),
+        (0.25, 3.65, 6.15, 2.10, "#FFF8E1", "Latent compositional variables"),
+        (0.25, 0.45, 9.40, 2.25, "#EEF7EC", "Measured transcriptomic variables"),
+    ]
+    for x, y, width, height, color, label in bands:
+        ax.add_patch(
+            plt.Rectangle(
+                (x, y),
+                width,
+                height,
+                facecolor=color,
+                edgecolor="none",
+                alpha=0.55,
+                zorder=0,
+            )
+        )
+        ax.text(
+            x + 0.15,
+            y + height - 0.12,
+            label,
+            ha="left",
+            va="top",
+            fontsize=6.4,
+            color="#5A5A5A",
+            style="italic",
+            zorder=1,
+        )
+
+    nodes = {
+        "stage": (0.7, 7.15, "Stage/grade", "#DCEBF7"),
+        "tumor": (4.0, 7.15, "Tumor biology", "#DCEBF7"),
+        "normal": (0.7, 4.25, "Normal-like\ncomponent score", "#FFF2CC"),
+        "micro": (4.0, 4.25, "Immune/stromal\ncomposition", "#FFF2CC"),
+        "normal_score": (0.7, 1.10, "Measured normal-like\nscore", "#E2EFDA"),
+        "micro_score": (4.0, 1.10, "Measured immune/\nstromal score", "#E2EFDA"),
+        "survival": (7.7, 4.25, "Overall survival", "#FCE4D6"),
+        "platform": (7.7, 1.10, "Platform/sampling", "#EDEDED"),
+    }
+    for key, (x, y, label, color) in nodes.items():
+        ax.add_patch(
+            FancyBboxPatch(
+                (x, y),
+                2.0,
+                1.02,
+                boxstyle="round,pad=0.04,rounding_size=0.10",
+                linewidth=0.9,
+                edgecolor="#555555",
+                facecolor=color,
+                zorder=3,
+            )
+        )
+        ax.text(
+            x + 1.0,
+            y + 0.51,
+            label,
+            ha="center",
+            va="center",
+            fontsize=7.5,
+            linespacing=1.9,
+            zorder=4,
+        )
+
+    def add_edge(start, end, sign, connection, label_offset):
+        sx, sy = start
+        ex, ey = end
+        ax.add_patch(
+            FancyArrowPatch(
+                (sx, sy),
+                (ex, ey),
+                connectionstyle=connection,
+                arrowstyle="-|>",
+                mutation_scale=13,
+                linewidth=1.0,
+                color="#333333",
+                zorder=2,
+            )
+        )
+        ax.text(
+            label_offset[0],
+            label_offset[1],
+            sign,
+            ha="center",
+            va="center",
+            fontsize=7.4,
+            color="#C0392B",
+            bbox={
+                "boxstyle": "circle,pad=0.22",
+                "facecolor": "white",
+                "edgecolor": "#C0392B",
+                "linewidth": 0.6,
+                "alpha": 0.98,
+            },
+            zorder=5,
+        )
+
+    add_edge(
+        (1.7, 7.15),
+        (1.7, 5.27),
+        "+/-",
+        "arc3,rad=0",
+        (2.05, 5.98),
+    )
+    add_edge(
+        (2.7, 7.66),
+        (8.7, 4.76),
+        "-",
+        "arc3,rad=-0.58",
+        (3.72, 7.78),
+    )
+    add_edge(
+        (5.0, 7.15),
+        (5.0, 5.27),
+        "+",
+        "arc3,rad=0",
+        (5.32, 5.98),
+    )
+    add_edge(
+        (6.0, 7.55),
+        (7.7, 4.95),
+        "-",
+        "arc3,rad=-0.24",
+        (6.92, 6.25),
+    )
+    add_edge(
+        (1.7, 4.25),
+        (1.7, 2.12),
+        "+",
+        "arc3,rad=0",
+        (2.02, 2.98),
+    )
+    add_edge(
+        (5.0, 4.25),
+        (5.0, 2.12),
+        "+",
+        "arc3,rad=0",
+        (5.32, 2.98),
+    )
+    add_edge(
+        (6.0, 4.76),
+        (7.7, 4.76),
+        "+/-",
+        "arc3,rad=0",
+        (6.85, 5.10),
+    )
+    add_edge(
+        (8.7, 1.10),
+        (2.7, 1.60),
+        "+/-",
+        "arc3,rad=-0.72",
+        (5.45, 0.38),
+    )
+    add_edge(
+        (7.7, 1.60),
+        (6.0, 1.60),
+        "+/-",
+        "arc3,rad=0",
+        (6.85, 1.95),
+    )
+    ax.set_title("Conceptual DAG with assumed effect directions", fontsize=10, pad=2)
+    fig.subplots_adjust(left=0.01, right=0.99, top=0.90, bottom=0.01)
     save(fig, "FigureS2")
     plt.close(fig)
 

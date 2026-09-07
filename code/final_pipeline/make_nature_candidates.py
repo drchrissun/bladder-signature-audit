@@ -390,7 +390,7 @@ def figure_sensitivity_grid():
         corr_matrix.loc[row.covariate_2, row.covariate_1] = row.pearson_r
     corr_values = corr_matrix.loc[cov_names, cov_names].to_numpy()
 
-    fig, axes = plt.subplots(2, 2, figsize=(7.2, 6.5))
+    fig, axes = plt.subplots(2, 2, figsize=(9.0, 6.5))
 
     for class_name, color in zip(
         class_names,
@@ -420,7 +420,13 @@ def figure_sensitivity_grid():
     axes[0, 0].set_ylabel("Signatures", fontsize=6)
     axes[0, 0].set_xticks([0.3, 0.4, 0.5])
     axes[0, 0].tick_params(labelsize=5)
-    axes[0, 0].legend(fontsize=5, loc="upper left", borderaxespad=0)
+    axes[0, 0].legend(
+        fontsize=5,
+        loc="center left",
+        bbox_to_anchor=(1.03, 0.5),
+        frameon=False,
+        borderaxespad=0,
+    )
 
     axes[0, 1].hist(
         bootstrap.loc[~bootstrap["significant"], "significant_rate"],
@@ -465,7 +471,13 @@ def figure_sensitivity_grid():
     axes[1, 0].set_xticklabels(["M0", "M1", "M2", "M3"], fontsize=5)
     axes[1, 0].set_ylabel("FDR-significant lists", fontsize=6)
     axes[1, 0].tick_params(labelsize=5)
-    axes[1, 0].legend(fontsize=5)
+    axes[1, 0].legend(
+        fontsize=5,
+        loc="center left",
+        bbox_to_anchor=(1.03, 0.5),
+        frameon=False,
+        borderaxespad=0,
+    )
 
     im = axes[1, 1].imshow(
         corr_values,
@@ -487,7 +499,7 @@ def figure_sensitivity_grid():
     for ax, label in zip(axes.ravel(), "abcd"):
         add_panel(ax, label)
 
-    fig.subplots_adjust(wspace=0.55, hspace=0.48, left=0.08, right=0.94)
+    fig.subplots_adjust(wspace=0.95, hspace=0.48, left=0.07, right=0.90)
     save_figure(fig, "NatureCandidate_SensitivityDiagnostics")
 
 
@@ -509,7 +521,7 @@ def figure_pathway_bubble():
     )
     selected["y"] = range(len(selected))
 
-    fig, ax = plt.subplots(figsize=(7.2, 5.4))
+    fig, ax = plt.subplots(figsize=(8.2, 5.4))
     groups = [
         "composition_adjustment_persistent",
         "microenvironment_associated_attenuation",
@@ -534,7 +546,6 @@ def figure_pathway_bubble():
     ax.set_xlabel("-log10(q)", fontsize=6)
     ax.set_ylabel("Hallmark pathway", fontsize=6)
     ax.tick_params(labelsize=5)
-    ax.legend(fontsize=5, loc="lower right")
     ax.set_xlim(left=0)
     for size in (5, 10, 20):
         ax.scatter(
@@ -545,6 +556,17 @@ def figure_pathway_bubble():
             edgecolors="white",
             label=f"{size} overlapping genes",
         )
+    handles, labels = ax.get_legend_handles_labels()
+    ax.legend(
+        handles,
+        labels,
+        fontsize=5,
+        loc="center left",
+        bbox_to_anchor=(1.02, 0.5),
+        frameon=False,
+        borderaxespad=0,
+    )
+    fig.subplots_adjust(left=0.10, right=0.60, top=0.94, bottom=0.04)
     add_panel(ax, "a")
     save_figure(fig, "NatureCandidate_PathwayBubble")
 
