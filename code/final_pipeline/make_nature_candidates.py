@@ -521,7 +521,10 @@ def figure_pathway_bubble():
     )
     selected["y"] = range(len(selected))
 
-    fig, ax = plt.subplots(figsize=(8.2, 5.4))
+    fig = plt.figure(figsize=(10.0, 5.6))
+    ax = fig.add_axes([0.07, 0.10, 0.48, 0.82])
+    legend_ax = fig.add_axes([0.59, 0.10, 0.38, 0.82])
+    legend_ax.axis("off")
     groups = [
         "composition_adjustment_persistent",
         "microenvironment_associated_attenuation",
@@ -557,16 +560,15 @@ def figure_pathway_bubble():
             label=f"{size} overlapping genes",
         )
     handles, labels = ax.get_legend_handles_labels()
-    ax.legend(
+    legend_ax.legend(
         handles,
         labels,
-        fontsize=5,
+        fontsize=6,
         loc="center left",
-        bbox_to_anchor=(1.02, 0.5),
+        bbox_to_anchor=(0.02, 0.5),
         frameon=False,
         borderaxespad=0,
     )
-    fig.subplots_adjust(left=0.10, right=0.60, top=0.94, bottom=0.04)
     add_panel(ax, "a")
     save_figure(fig, "NatureCandidate_PathwayBubble")
 
